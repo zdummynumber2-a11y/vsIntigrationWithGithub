@@ -1,0 +1,49 @@
+#include <iostream>
+#include <chrono>
+#include <cmath>
+
+using namespace std;
+
+unsigned int hilbert(int x, int y) {
+	short orientation = 0;
+	int reflectedX = 0;
+	int reflectedY = 0;
+	unsigned int result = 0;
+
+	for (int n = 15; n >= 0; n--) {
+		if (orientation == 0) {
+			reflectedX |= ((x >> n) & 1) << n;
+			reflectedY |= ((y >> n) & 1) << n;
+		}
+		else if (orientation == 1) {
+			reflectedX |= ((y >> n) & 1) << n;
+			reflectedY |= ((x >> n) & 1) << n;
+		}
+		else if (orientation == 2) {
+			reflectedX |= (~(y >> n) & 1) << n;
+			reflectedY |= (~(x >> n) & 1) << n;
+		}
+		else if (orientation == 3) {
+			reflectedX |= (~(x >> n) & 1) << n;
+			reflectedY |= (~(y >> n) & 1) << n;
+		}
+		else {
+			return 15;
+		}
+		result |= ((((reflectedX >> n) & 1) ^ ((reflectedY >> n) & 1)) | (((reflectedX >> n) & 1) << 1)) << (2 * n);
+		if (((reflectedY >> n) & 1) == 0) {
+			orientation ^= ((reflectedX >> n) & 1) + 1;
+		}
+	}
+
+
+
+	return result;
+}
+
+int main() {
+	char user_input;
+
+	cout << hilbert(3, 2) << "this is indeed a change";
+	return 1;
+}
