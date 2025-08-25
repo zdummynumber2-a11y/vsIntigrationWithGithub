@@ -36,7 +36,7 @@ unsigned int hilbert(int x, int y) {
 
 		result |= ((((reflectedX >> n) & 1) ^ ((reflectedY >> n) & 1)) | (((reflectedX >> n) & 1) << 1)) << (2 * n);
 
-		if (reflectedY >> n) &1) == 0) {
+		if (((reflectedY >> n) & 1) == 0) {
 			orientation ^= (((reflectedX >> n) & 1) + 1);
 		}
 		
